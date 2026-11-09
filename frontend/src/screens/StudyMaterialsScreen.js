@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { colors, typography } from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
-import { api, resolveFileUrl, downloadPdfFile, viewPdfFile } from '../api/client';
+import { api, resolveFileUrl, downloadPdfFile, viewPdfFile, getBackendOrigin } from '../api/client';
 import { Modal } from '../components/Modal';
 
 export function StudyMaterialsScreen() {
@@ -444,7 +444,7 @@ export function StudyMaterialsScreen() {
                   key={preset.name}
                   style={styles.presetChip}
                   onPress={() => {
-                    setFileUrl(`http://localhost:5000/uploads/materials/${preset.name}`);
+                    setFileUrl(`${getBackendOrigin()}/uploads/materials/${preset.name}`);
                     if (!title) setTitle(preset.label);
                   }}
                 >
@@ -456,7 +456,7 @@ export function StudyMaterialsScreen() {
             <Text style={styles.label}>File URL (PDF or Drive link) *</Text>
             <TextInput
               style={styles.input}
-              placeholder="http://localhost:5000/uploads/materials/sample-syllabus.pdf"
+              placeholder={`${getBackendOrigin()}/uploads/materials/sample-syllabus.pdf`}
               placeholderTextColor={colors.textMuted}
               value={fileUrl}
               onChangeText={setFileUrl}

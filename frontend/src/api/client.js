@@ -1,14 +1,15 @@
 import { Linking, Platform } from 'react-native';
 
+export const LIVE_RENDER_ORIGIN = 'https://zenora-lms.onrender.com';
+export const LIVE_RENDER_API_URL = `${LIVE_RENDER_ORIGIN}/api`;
+
 export function getApiBaseUrl() {
+  // If explicitly configured in build environment (e.g., EAS, local .env, CI)
   if (typeof process !== 'undefined' && process.env && process.env.EXPO_PUBLIC_API_URL) {
-    return process.env.EXPO_PUBLIC_API_URL;
+    return process.env.EXPO_PUBLIC_API_URL.replace(/\/+$/, '');
   }
-  if (typeof window !== 'undefined' && window.location && window.location.hostname) {
-    const protocol = window.location.protocol || 'http:';
-    return `${protocol}//${window.location.hostname}:5000/api`;
-  }
-  return 'http://localhost:5000/api';
+  // Production Universal Default for Web, Android, iOS, and Windows Native
+  return LIVE_RENDER_API_URL;
 }
 
 export function getBackendOrigin() {

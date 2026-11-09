@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator, TextInput, Platform } from 'react-native';
 import { colors, typography } from '../theme/colors';
-import { api, resolveFileUrl, downloadPdfFile, viewPdfFile } from '../api/client';
+import { api, resolveFileUrl, downloadPdfFile, viewPdfFile, getBackendOrigin } from '../api/client';
 import { GlassCard } from '../components/GlassCard';
 import { Badge } from '../components/Badge';
 import { Modal } from '../components/Modal';
@@ -123,7 +123,7 @@ export function LessonPlayerScreen({ lessonId, onBack, onOpenLesson }) {
               {Platform.OS === 'web' ? (
                 <video
                   key={lesson.content_url}
-                  src={lesson.content_url || 'http://localhost:5000/uploads/media/demo_lesson.mp4'}
+                  src={lesson.content_url ? resolveFileUrl(lesson.content_url) : `${getBackendOrigin()}/uploads/media/demo_lesson.mp4`}
                   controls
                   playsInline
                   preload="metadata"
