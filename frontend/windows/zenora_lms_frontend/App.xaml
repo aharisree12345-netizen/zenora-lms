@@ -1,0 +1,8 @@
+<Application
+    x:Class="zenora_lms_frontend.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:zenora_lms_frontend">
+
+</Application>
+
